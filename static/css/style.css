@@ -1,0 +1,211 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e0e5ec;
+}
+
+.navbar {
+    background-color: #212529; 
+    color: #ffffff;
+    padding: 15px 0;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    margin-bottom: 20px;
+}
+
+.nav-content {
+    width: 100%;
+    padding: 0 20px 0 40px; 
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-top: 0;
+}
+
+.titulo-principal {
+    margin-bottom: 15px;
+}
+
+.contenedor-principal {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    align-items: center; 
+    justify-content: center;
+    padding: 0 20px; 
+    flex-grow: 1;
+    margin: 0 auto; 
+}
+
+.formBox {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 480px; 
+}
+
+.formBox.solo {
+    max-width: 500px;
+}
+
+.contenedor-principal .formBox {
+    flex: 1.1;
+    height: auto; 
+}
+
+.listBox {
+    flex: 1.5;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    height: 400px; 
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+}
+
+label {
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 0.95rem;
+}
+
+input[type="text"], input[type="tel"], input[type="email"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background-color: #f9f9f9;
+}
+
+input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus {
+    border-color: #0d6efd;
+    background-color: white;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+input[type="submit"]:hover { 
+    background-color: #0b5ed7; 
+}
+
+input[type="submit"].btn-success { background-color: #198754; }
+input[type="submit"].btn-success:hover { background-color: #157347; }
+
+.btn-cancelar {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #6c757d;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+.btn-cancelar:hover { background-color: #5c636a; }
+
+ul { list-style: none; padding: 0; margin: 0; }
+
+.tarjeta-contacto {
+    background-color: #f8f9fa;
+    border-left: 5px solid #0d6efd;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.tarjeta-contacto h5 { margin: 0 0 5px 0; font-size: 1.1rem; color: #222; font-weight: 700; }
+.tarjeta-contacto small { color: #666; display: block; font-size: 0.9rem; }
+
+.acciones { display: flex; gap: 8px; }
+
+.btn-editar, .btn-borrar {
+    display: inline-flex !important;
+    justify-content: center; align-items: center;
+    width: 42px; height: 42px; border-radius: 8px;
+    font-size: 1.1rem; text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease; border: none;
+}
+.btn-editar:hover, .btn-borrar:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+
+.btn-editar { background-color: #ffca2c; color: #333; }
+.btn-editar:hover { background-color: #ffc107; }
+
+.btn-borrar { background-color: #ff5252; color: white; }
+.btn-borrar:hover { background-color: #ff1744; }
+
+.listBox::-webkit-scrollbar { width: 8px; }
+.listBox::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+.listBox::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+.listBox::-webkit-scrollbar-thumb:hover { background: #bbb; }
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    margin-top: 15px; 
+    color: #6c757d; 
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.footer strong {
+    color: #495057; 
+}
+
+@media (max-width: 768px) {
+    .contenedor-principal { flex-direction: column; align-items: stretch; }
+    .listBox { max-height: 400px; }
+}

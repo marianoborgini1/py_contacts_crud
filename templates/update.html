@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Actualizar Contacto</title>
+</head>
+<body>
+
+    <div class="formBox solo">
+        
+        <h2 style="margin-bottom: 25px; font-size: 1.8rem;">
+            <i class="fa-solid fa-user-pen" style="color: #198754;"></i> 
+            Editar Contacto
+        </h2>
+        
+        <form action="/update/{{ contacto.id }}" method="post">
+            
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre" value="{{ contacto.nombre }}" 
+            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+" 
+            title="Por favor, ingresa solo letras y espacios."
+            required>
+            
+            <label for="dni">Telefono</label>
+            <input type="tel" name="telefono" id="telefono" value="{{ contacto.telefono }}"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
+            minlength="8" maxlength="15"
+            placeholder="Ej: 11 1234 5678"
+            required
+            >
+            
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="{{ contacto.email }}" required>
+            
+            <input type="submit" value="Confirmar Cambios" class="btn-success">
+            
+            <a href="/" class="btn-cancelar">Cancelar</a>
+            
+        </form>
+    </div>
+
+</body>
+</html>
