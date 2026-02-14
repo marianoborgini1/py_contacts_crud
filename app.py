@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pprint import pprint #permite mostrar datos complejos de forma facil de leer en consola
-from models import db, Contactos
+from models.table_contacts import db, Contactos
 
 #flash mensaje temporal entre una pagina y otra ej: contraseña incorrecta, agregado correctamente, etc.
 
