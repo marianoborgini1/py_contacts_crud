@@ -38,9 +38,7 @@ El sistema utiliza una única tabla `contactos` gestionada mediante SQLite, con 
 * `email`: String (Not Null)
 
 ## 🔗 Link de la web para probar
-<link href="https://marianoborgini.pythonanywhere.com/">
-
-
+<https://marianoborgini.pythonanywhere.com/>
 
 ## 💻 Instalación y Uso Local
 
@@ -50,3 +48,4 @@ Si querés clonar el proyecto y correrlo en tu máquina local, seguí estos paso
    ```bash
 
    git clone [https://github.com/marianoborgini1/py_contacts_crud.git](https://github.com/marianoborgini1/py_contacts_crud.git)
+
