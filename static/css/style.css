@@ -17,7 +17,6 @@ body {
     padding: 15px 0;
     width: 100%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
-    margin-bottom: 20px;
 }
 
 .nav-content {
@@ -40,10 +39,6 @@ h2 {
     margin-top: 0;
 }
 
-.titulo-principal {
-    margin-bottom: 15px;
-}
-
 .contenedor-principal {
     display: flex;
     gap: 20px;
@@ -51,9 +46,26 @@ h2 {
     max-width: 1000px;
     align-items: center; 
     justify-content: center;
-    padding: 0 20px; 
+    padding: 20px; 
     flex-grow: 1;
     margin: 0 auto; 
+}
+
+.contenedor-editar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.caja-edicion {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
 }
 
 .formBox {
@@ -63,15 +75,6 @@ h2 {
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 480px; 
-}
-
-.formBox.solo {
-    max-width: 500px;
-}
-
-.contenedor-principal .formBox {
-    flex: 1.1;
-    height: auto; 
 }
 
 .listBox {
@@ -195,7 +198,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 .footer {
     text-align: center;
     padding: 10px;
-    margin-top: 15px; 
+    margin-top: auto; 
     color: #6c757d; 
     font-size: 0.9rem;
     width: 100%;

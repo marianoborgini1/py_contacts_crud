@@ -9,38 +9,45 @@
 </head>
 <body>
 
-    <div class="formBox solo">
-        
-        <h2 style="margin-bottom: 25px; font-size: 1.8rem;">
-            <i class="fa-solid fa-user-pen" style="color: #198754;"></i> 
-            Editar Contacto
-        </h2>
-        
-        <form action="/update/{{ contacto.id }}" method="post">
+    <header class="navbar">
+        <div class="nav-content">
+            <h1><i class="fa-solid fa-address-book"></i> PyContacts</h1>
+        </div>
+    </header>
+
+    <main class="contenedor-editar">
+        <div class="caja-edicion">
             
-            <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" id="nombre" value="{{ contacto.nombre }}" 
-            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+" 
-            title="Por favor, ingresa solo letras y espacios."
-            required>
+            <h2 style="margin-bottom: 25px; font-size: 1.8rem;">
+                <i class="fa-solid fa-user-pen" style="color: #198754;"></i> 
+                Editar Contacto
+            </h2>
             
-            <label for="dni">Telefono</label>
-            <input type="tel" name="telefono" id="telefono" value="{{ contacto.telefono }}"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
-            minlength="8" maxlength="15"
-            placeholder="Ej: 11 1234 5678"
-            required
-            >
-            
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="{{ contacto.email }}" required>
-            
-            <input type="submit" value="Confirmar Cambios" class="btn-success">
-            
-            <a href="/" class="btn-cancelar">Cancelar</a>
-            
-        </form>
-    </div>
+            <form action="/update/{{ contacto.id }}" method="post">
+                
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" value="{{ contacto.nombre }}" 
+                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+" 
+                title="Por favor, ingresa solo letras y espacios."
+                required>
+                
+                <label for="telefono">Telefono</label>
+                <input type="tel" name="telefono" id="telefono" value="{{ contacto.telefono }}"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
+                minlength="8" maxlength="15"
+                placeholder="Ej: 11 1234 5678"
+                required>
+                
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="{{ contacto.email }}">
+                
+                <input type="submit" value="Confirmar Cambios" class="btn-success">
+                
+                <a href="/" class="btn-cancelar">Cancelar</a>
+                
+            </form>
+        </div>
+    </main>
 
 </body>
 </html>
