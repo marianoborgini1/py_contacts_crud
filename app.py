@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pprint import pprint #permite mostrar datos complejos de forma facil de leer en consola
 from models.table_contacts import db, Contactos
+import os                                  
+from dotenv import load_dotenv             
+load_dotenv()                              
 
 #flash mensaje temporal entre una pagina y otra ej: contraseña incorrecta, agregado correctamente, etc.
 
@@ -16,7 +19,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
     
-app.secret_key = "security_key_crud_contact_borgini"
+app.secret_key = os.environ.get('SECRET_KEY')
 
 
 @app.route("/", methods=["GET", "POST"]) # get metodo por defecto para recuperar una representacion de un recurso especifico, no es discreto, sirve para enviar informacion al servidor por url
