@@ -49,4 +49,7 @@ Si querés clonar el proyecto y correrlo en tu máquina local, seguí estos paso
 
    git clone [https://github.com/marianoborgini1/py_contacts_crud.git](https://github.com/marianoborgini1/py_contacts_crud.git)
 
+2. Instala **requirements.txt**, abri una terminal y escribi **python app.py** para crear el servidor y ejecutarlo en tu maquina.
+
+
 
