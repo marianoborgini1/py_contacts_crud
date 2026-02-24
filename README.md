@@ -32,27 +32,17 @@ El sistema permite gestionar una agenda de manera intuitiva, ejecutando las cuat
 * **Frontend:** HTML5, CSS3 nativo (diseño responsive, sin frameworks pesados), Jinja2 (Motor de plantillas).
 * **Interactividad:** SweetAlert2 para alertas dinámicas y confirmaciones de acciones.
 
-## 🗄️ Estructura de la Base de Datos (DER)
+## 🗄️ Arquitectura de la Base de Datos
 
-El proyecto utiliza una estructura relacional de **1 a Muchos (1:N)** gestionada mediante PostgreSQL y SQLAlchemy. La base de datos consta de dos tablas principales vinculadas:
+El núcleo de **PyContacts** está soportado por una base de datos relacional (PostgreSQL en Neon) diseñada para garantizar la privacidad y la persistencia segura de la agenda de cada cuenta. La estructura se apoya en el ORM SQLAlchemy y contiene dos tablas principales (`User` y `Contacts`) vinculadas mediante una clave foránea.
 
-1. **Tabla `User`:**
-   * `id`: Integer (Primary Key, Auto-incrementable)
-   * `username`: String (Not Null)
-   * `email`: String (Unique, Not Null)
-   * `password`: String (Not Null)
+![Diagrama de Base de Datos](static/diagrama_der/pycontacts_der.drawio.png)
 
-2. **Tabla `Contactos`:**
-   * `id`: Integer (Primary Key, Auto-incrementable)
-   * `id_user`: Integer (Foreign Key -> `User.id`, Not Null)
-   * `nombre`: String (Not Null)
-   * `telefono`: String (Not Null)
-   * `email`: String (Opcional)
-
-*Nota: La clave foránea `id_user` garantiza que cada usuario acceda de forma exclusiva y privada únicamente a los contactos que él mismo registró.*
+* **Modelo Relacional (1:N):** La arquitectura utiliza una relación de "Uno a Muchos" (One-to-Many) entre las entidades `User` y `Contacts`. Se implementó una llave foránea (`FK id_user`) con restricciones estrictas (`NOT NULL`) para asegurar que cada contacto guardado pertenezca de forma exclusiva y unívoca a un usuario validado, aislando la información entre cuentas.
+* **Integridad y Flexibilidad de Datos (Constraints):** Los campos críticos para el funcionamiento del sistema (`nombre` y `telefono` para los contactos; credenciales de acceso para los usuarios) poseen restricciones `NOT NULL` a nivel de base de datos. En contraste, el campo `email` en la tabla de contactos permite valores nulos (`Nullable`), otorgando flexibilidad para registrar personas de las que solo se posee el número telefónico sin romper la integridad estructural.
 
 ## 🔗 Link de la web para probar
-<https://marianoborgini.pythonanywhere.com/>
+<https://pycontacts.vercel.app/>
 
 ## 💻 Instalación y Uso Local
 
@@ -72,5 +62,6 @@ Si querés clonar el proyecto y correrlo en tu máquina local, seguí estos paso
 ```bash
    python app.py
 ```
+
 
 
