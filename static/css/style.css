@@ -108,6 +108,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .footer-socials a {
@@ -200,7 +201,7 @@ body {
     padding: 40px 20px; 
     flex-grow: 1;
     margin: 0 auto; 
-    align-items: center;
+    align-items: flex-start;
 }
 
 .formBox {
@@ -281,6 +282,10 @@ ul { list-style: none; }
     transition: transform 0.2s;
 }
 
+.tarjeta-contacto:hover { transform: translateX(5px); }
+.tarjeta-contacto h5 { margin: 0 0 5px 0; font-size: 1.1rem; color: #1e293b; font-weight: 600; }
+.tarjeta-contacto small { color: #64748b; display: block; font-size: 0.9rem; margin-bottom: 3px;}
+
 .btn-cancelar {
     display: block;
     width: 100%;
@@ -300,10 +305,6 @@ ul { list-style: none; }
     background-color: #334155;
 }
 
-.tarjeta-contacto:hover { transform: translateX(5px); }
-.tarjeta-contacto h5 { margin: 0 0 5px 0; font-size: 1.1rem; color: #1e293b; font-weight: 600; }
-.tarjeta-contacto small { color: #64748b; display: block; font-size: 0.9rem; margin-bottom: 3px;}
-
 .acciones { display: flex; gap: 10px; }
 .btn-editar, .btn-borrar {
     display: inline-flex; justify-content: center; align-items: center;
@@ -319,8 +320,63 @@ ul { list-style: none; }
 .listBox::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 .listBox::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE TODITO)
+   ========================================= */
+
 @media (max-width: 768px) {
-    .contenedor-principal { flex-direction: column; align-items: center; }
-    .formBox, .listBox { max-width: 100%; }
-    .hero-text h2 { font-size: 2.5rem; }
+    .nav-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .hero-text h2 { 
+        font-size: 2.2rem; 
+    }
+    
+    .hero-text p { 
+        font-size: 1rem; 
+        margin-bottom: 25px; 
+    }
+
+    .contenedor-principal { 
+        flex-direction: column; 
+        align-items: center;
+        padding: 20px 15px;
+        gap: 20px;
+    }
+    
+    .formBox, .listBox { 
+        max-width: 100%; 
+        padding: 20px;
+    }
+
+    .listBox {
+        height: auto;
+        max-height: 500px;
+    }
+
+    .tarjeta-contacto {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .acciones {
+        width: 100%;
+        justify-content: flex-end;
+        padding-top: 10px;
+        border-top: 1px solid #f1f5f9;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h2 { font-size: 1.8rem; }
+    .hero-btn { padding: 12px 25px; font-size: 1rem; }
 }
