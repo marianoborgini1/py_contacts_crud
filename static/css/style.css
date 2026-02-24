@@ -13,6 +13,7 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: #1e293b;
     color: #333;
+    overflow-x: hidden; /* Evita scroll horizontal al abrir menu */
 }
 
 .navbar {
@@ -21,7 +22,8 @@ body {
     padding: 15px 0;
     width: 100%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
-    z-index: 10;
+    z-index: 100; /* Z-index alto para que quede sobre todo */
+    position: relative;
 }
 
 .nav-content {
@@ -42,6 +44,22 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+/* Estilos del icono Hamburguesa (oculto en escritorio) */
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
 }
 
 .nav-links {
@@ -133,6 +151,7 @@ body {
     transform: translateY(-3px);
 }
 
+/* Imagen de fondo para Escritorio (Horizontal) */
 .hero-section, .auth-wrapper {
     flex-grow: 1;
     display: flex;
@@ -321,21 +340,57 @@ ul { list-style: none; }
 .listBox::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
 /* =========================================
-   MEDIA QUERIES (RESPONSIVE TODITO)
+   MEDIA QUERIES (CELULAR)
    ========================================= */
 
 @media (max-width: 768px) {
-    .nav-content {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
+    /* Mostrar hamburguesa */
+    .hamburger {
+        display: block;
+        z-index: 101;
     }
 
+    /* Animación de la hamburguesa a X */
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Menú de enlaces en móvil */
+    .nav-links {
+        position: fixed;
+        top: -100%; /* Oculto arriba */
+        left: 0;
+        flex-direction: column;
+        background-color: #1a1d20;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+        padding-bottom: 30px;
+        gap: 25px;
+    }
+
+    .nav-links.active {
+        top: 70px; /* Baja cuando está activo */
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+    }
+
+    /* CAMBIO DE IMAGEN DE FONDO PARA CELULAR (Vertical/Portrait) */
+    .hero-section, .auth-wrapper {
+        background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1517842645767-c639042777db?q=80&w=987&auto=format&fit=crop');
+        background-position: center top;
+    }
+
+    /* Resto de ajustes responsive */
     .hero-text h2 { 
         font-size: 2.2rem; 
     }

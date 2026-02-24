@@ -12,6 +12,13 @@
     <header class="navbar">
         <div class="nav-content">
             <h1><a href="/"><i class="fas fa-address-book" style="color: #3498db;"></i> PyContacts</a></h1>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
             <div class="nav-links">
                 <a href="#footer"><i class="fas fa-envelope"></i> Contacto</a>
                 <a href="{{ url_for('auth.register') }}" class="btn-nav-primary">Registrate</a>
@@ -71,6 +78,21 @@
         <p style="margin-top: 20px;">Mariano Borgini <strong>&lt;/&gt;</strong> Software Developer</p>
         <p style="margin-top: 5px; font-size: 0.8rem;">Todos los derechos reservados © 2026</p>
     </footer>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        });
+
+        document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navLinks.classList.remove("active");
+        }));
+    </script>
 
 </body>
 </html>
