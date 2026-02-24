@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PyContacts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#1e293b',
+                    color: '#ffffff'
+                })
+                {% for message in messages %}
+                    Toast.fire({
+                        icon: 'success',
+                        title: '{{ message }}'
+                    })
+                {% endfor %}
+            </script>
+        {% endif %}
+    {% endwith %}
+
+    <header class="navbar">
+        <div class="nav-content">
+            <h1><a href="/"><i class="fas fa-address-book" style="color: #3498db;"></i> PyContacts</a></h1>
+            <div class="nav-links">
+                <span style="margin-right: 15px;"> Hola, {{ session.get('userName') }}👋</span>
+                <a href="{{ url_for('auth.logout') }}" class="btn-nav-danger"><i class="fas fa-sign-out-alt"></i> Salir</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="contenedor-principal">
+        <div class="formBox">
+            <h3><i class="fas fa-user-plus"></i> Nuevo Contacto</h3>
+            
+            <form action="{{ url_for('contacts.dashboard') }}" method="POST">
+                <label>Nombre Completo</label>
+                <input type="text" name="nombre" placeholder="Ej: Juan Pérez" required>
+
+                <label>Teléfono</label>
+                <input type="tel" name="telefono" placeholder="Ej: 221-648-0800" required>
+
+                <label>Correo Electrónico</label>
+                <input type="email" name="email" placeholder="Ej: juan@gmail.com">
+
+                <input type="submit" value="Guardar Contacto">
+            </form>
+        </div>
+
+        <div class="listBox">
+            <h3><i class="fas fa-users"></i> Mi Agenda</h3>
+            
+            <ul>
+                {% for contacto in listDate %}
+                <li class="tarjeta-contacto">
+                    <div>
+                        <h5>{{ contacto.nombre }}</h5>
+                        <small><i class="fas fa-phone-alt" style="color: #94a3b8;"></i> {{ contacto.telefono }}</small>
+                        <small><i class="fas fa-envelope" style="color: #94a3b8;"></i> {{ contacto.email }}</small>
+                    </div>
+                    <div class="acciones">
+                        <a href="{{ url_for('contacts.updateContacto', id=contacto.id) }}" class="btn-editar" title="Editar">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                        <a href="#" class="btn-borrar" title="Eliminar" onclick="confirmarEliminacion('{{ url_for('contacts.deleteContacto', id=contacto.id) }}')">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </li>
+                {% else %}
+                <div style="text-align: center; color: #94a3b8; margin-top: 50px;">
+                    <i class="fas fa-address-book" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Tu agenda está vacía.<br>¡Agregá tu primer contacto!</p>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <footer id="footer" class="footer">
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/mariano-borgini-dev/" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://github.com/marianoborgini1" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="mailto:marianoborgini1@gmail.com" title="Enviar Email">
+                <i class="fas fa-envelope"></i> Gmail
+            </a>
+        </div>
+        
+        <p style="margin-top: 20px;">Mariano <strong>&lt;/&gt;</strong> Software Developer</p>
+        <p style="margin-top: 5px; font-size: 0.8rem;">Todos los derechos reservados © 2026</p>
+    </footer>
+
+    <script>
+        function confirmarEliminacion(url) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No vas a poder revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#475569',
+                confirmButtonText: 'Sí, borrarlo',
+                cancelButtonText: 'Cancelar',
+                background: '#1e293b',
+                color: '#ffffff',
+                iconColor: '#f87171'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            })
+        }
+    </script>
+</body>
+</html>

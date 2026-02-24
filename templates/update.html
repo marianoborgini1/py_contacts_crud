@@ -3,51 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title>Actualizar Contacto</title>
+    <title>Editar Contacto - PyContacts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
     <header class="navbar">
         <div class="nav-content">
-            <h1><i class="fa-solid fa-address-book"></i> PyContacts</h1>
+            <h1><a href="/"><i class="fas fa-address-book" style="color: #3498db;"></i> PyContacts</a></h1>
         </div>
     </header>
 
-    <main class="contenedor-editar">
-        <div class="caja-edicion">
+    <div class="contenedor-principal" style="justify-content: center; align-items: center;">
+        <div class="formBox">
+            <h3 style="margin-bottom: 20px; color: #2c3e50; text-align: center;"><i class="fas fa-user-edit"></i> Editar Contacto</h3>
             
-            <h2 style="margin-bottom: 25px; font-size: 1.8rem;">
-                <i class="fa-solid fa-user-pen" style="color: #198754;"></i> 
-                Editar Contacto
-            </h2>
-            
-            <form action="/update/{{ contacto.id }}" method="post">
-                
-                <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre" value="{{ contacto.nombre }}" 
-                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+" 
-                title="Por favor, ingresa solo letras y espacios."
-                required>
-                
-                <label for="telefono">Telefono</label>
-                <input type="tel" name="telefono" id="telefono" value="{{ contacto.telefono }}"
-                oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
-                minlength="8" maxlength="15"
-                placeholder="Ej: 11 1234 5678"
-                required>
-                
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" value="{{ contacto.email }}">
-                
-                <input type="submit" value="Confirmar Cambios" class="btn-success">
-                
-                <a href="/" class="btn-cancelar">Cancelar</a>
-                
+            <form action="{{ url_for('contacts.updateContacto', id=contacto.id) }}" method="POST">
+                <label>Nombre Completo</label>
+                <input type="text" name="nombre" value="{{ contacto.nombre }}" required>
+
+                <label>Teléfono</label>
+                <input type="tel" name="telefono" value="{{ contacto.telefono }}" required>
+
+                <label>Correo Electrónico</label>
+                <input type="email" name="email" value="{{ contacto.email }}">
+
+                <input type="submit" value="Actualizar" class="btn-success">
+                <a href="{{ url_for('contacts.dashboard') }}" class="btn-cancelar">Cancelar</a>
             </form>
         </div>
-    </main>
+    </div>
+
+    <footer id="footer" class="footer">
+        <p>Mariano Borgini <strong>&lt;/&gt;</strong> Software Developer | Todos los derechos reservados © 2026</p>
+        
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/mariano-borgini-dev/" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/marianoborgini1" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:marianoborgini1@gmail.com" title="Enviar Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </footer>
 
 </body>
 </html>

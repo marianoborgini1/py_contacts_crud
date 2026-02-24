@@ -3,115 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title>PyContacts</title>
+    <title>PyContacts - Tu agenda inteligente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    
+
     <header class="navbar">
         <div class="nav-content">
-            <h1><i class="fa-solid fa-address-book"></i> PyContacts</h1>
+            <h1><a href="/"><i class="fas fa-address-book" style="color: #3498db;"></i> PyContacts</a></h1>
+            <div class="nav-links">
+                {% if session.get('userId') %}
+                    <a href="{{ url_for('contacts.dashboard') }}" class="btn-nav-primary">Ir al Dashboard</a>
+                    <a href="{{ url_for('auth.logout') }}" class="btn-nav-danger">Salir</a>
+                {% else %}
+                    <a href="#footer"><i class="fas fa-envelope"></i> Contacto</a>
+                    <a href="{{ url_for('auth.login') }}">Iniciar Sesión</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn-nav-primary">Registrate</a>
+                {% endif %}
+            </div>
         </div>
     </header>
-    
-    <div class="contenedor-principal">
-        
-        <div class="formBox">
-            <h2 style="margin-top: 0;">Agregar Contacto</h2>
-            
-            <form action="/" method="post">
-                <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre" placeholder="Ingresa nombre..."
-                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+" 
-                title="Por favor, ingresa solo letras y espacios."
-                required
-                >
-                
-                <label for="telefono">Telefono</label>
-                <input type="tel" name="telefono" id="telefono" 
-                oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
-                minlength="8" maxlength="15"
-                placeholder="Ej: 11 1234 5678"
-                required
-                >
-                
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Ingresa email..."
-                >
-                
-                <input type="submit" value="Agregar Contacto" id="enviar">
-            </form>
-        </div>
 
-        <div class="listBox">
-            <h2 style="position: sticky; top: 0; background: white; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;">Mis Contactos</h2>
-                {% if listDate %}
-                <ul> 
-                    {% for contacto in listDate %}
-                    <li class="tarjeta-contacto">
-                        <div>
-                            <h5>{{ contacto.nombre }}</h5>
-                            <small>{{ contacto.telefono }} | {{ contacto.email }}</small>
-                        </div>
-                        <div class="acciones">
-                            <a href="{{ url_for('updateContacto', id=contacto.id) }}" class="btn-editar">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                            <a href="{{ url_for('deleteContacto', id=contacto.id) }}"   class="btn-borrar" onclick="confirmarBorrado(event, this.href)"> <!-- funcion confirm() alert de confirmacion para frenar o continuar con la accion a cometer -->
-                            <i class="fa-solid fa-trash-can"></i>
-                            </a>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+    <main class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2>Gestioná tus contactos de forma inteligente y segura.</h2>
+                <p>Olvidate de perder números o correos importantes. PyContacts es tu agenda personal en la nube, diseñada para ser rápida, simple y accesible desde cualquier dispositivo.</p>
+                {% if not session.get('userId') %}
+                    <a href="{{ url_for('auth.register') }}" class="hero-btn">Registrate Gratis <i class="fas fa-arrow-right"></i></a>
                 {% else %}
-                <div class="alert alert-info text-center">Aún no hay contactos.</div>
-            {% endif %}
+                    <a href="{{ url_for('contacts.dashboard') }}" class="hero-btn">Ir a mi Agenda <i class="fas fa-arrow-right"></i></a>
+                {% endif %}
+            </div>
         </div>
-    </div> 
+    </main>
 
-    <footer class="footer">
-        <p>&lt;/&gt; Desarrollado por <strong>Borgini Mariano</strong> | Proyecto Backend con Flask</p>
+    <footer id="footer" class="footer">
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/mariano-borgini-dev/" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://github.com/marianoborgini1" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="mailto:marianoborgini1@gmail.com" title="Enviar Email">
+                <i class="fas fa-envelope"></i> Gmail
+            </a>
+        </div>
+        
+        <p style="margin-top: 20px;">Mariano <strong>&lt;/&gt;</strong> Software Developer</p>
+        <p style="margin-top: 5px; font-size: 0.8rem;">Todos los derechos reservados © 2026</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-
-        function confirmarBorrado(event, url) {
-            event.preventDefault(); // Frena el link
-            
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "No vas a poder recuperar este contacto.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#ff5252', 
-                cancelButtonColor: '#6c757d',  
-                confirmButtonText: 'Sí, borrar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url; // lo borra
-                }
-            });
-        }
-        </script>
-
-        {% with messages = get_flashed_messages() %} <!-- ESPACIO TEMPORAL: Busca si hay mensajes de Flask, los guarda en 'messages'. Al final del bloque se borra de la memoria. -->
-        {% if messages %} <!-- Si la variable tiene algo adentro (es true), entra y ejecuta el script. -->
-            <script>
-                Swal.fire({
-                    title: '¡Éxito!',
-                    text: '{{ messages[0] }}', 
-                    icon: 'success',           
-                    confirmButtonText: 'Genial',
-                    confirmButtonColor: '#0d6efd' 
-                });
-            </script>
-        {% endif %}
-    {% endwith %}
-    
 </body>
 </html>

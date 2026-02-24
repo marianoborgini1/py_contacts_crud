@@ -1,16 +1,27 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+import os       
+from flask import Flask, render_template, request, redirect, url_for, flash, session, redirect
 from pprint import pprint #permite mostrar datos complejos de forma facil de leer en consola
-from models.table_contacts import db, Contactos
-import os                                  
+from models.database import db
+from models.table_user import User
+from models.table_contacts import Contactos
 from dotenv import load_dotenv             
 load_dotenv()                              
 
+from routes.auth import rout_auth
+from routes.contacts import rout_contacts
 #flash mensaje temporal entre una pagina y otra ej: contraseña incorrecta, agregado correctamente, etc.
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contactos.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_4NWEOulj8GzM@ep-orange-wildflower-aieimn4m-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "pool_pre_ping": True,
+    "pool_recycle": 300,
+}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Llama a la clave desde el .env 
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'default_key_flask')
 
 #conexion le decimos que esta es nuestra app
 db.init_app(app)
@@ -19,59 +30,18 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
     
-app.secret_key = os.environ.get('SECRET_KEY')
+# Registro de rutas 
+app.register_blueprint(rout_auth)
+app.register_blueprint(rout_contacts)
 
-
-@app.route("/", methods=["GET", "POST"]) # get metodo por defecto para recuperar una representacion de un recurso especifico, no es discreto, sirve para enviar informacion al servidor por url
-def form():
-    if request.method=="POST":            
-        nombre = request.form["nombre"]
-        telefono = request.form["telefono"]
-        email = request.form["email"]
-
-        newContacto = Contactos(nombre=nombre, telefono=telefono, email=email)
-
-        db.session.add(newContacto)
-        db.session.commit()
-
+@app.route('/')
+def index():
+    # Si tiene sesión iniciada redirige al dashboard
+    if 'userId' in session:
+        return redirect(url_for('contacts.dashboard'))
         
-        pprint(request.form) # se muestra lo que puso el usuario
-        flash("Contacto aregado correctamente!")
-        return redirect(url_for('form'))
-    else:
-        readContacto = Contactos.query.all()
-        return render_template("index.html", listDate = readContacto) # returna el formulario vacio
+    return render_template('index.html')
 
-@app.route("/delete/<int:id>")
-def deleteContacto(id):
-    
-    #busca contacto en la db si no existe devuelve ERROR 404
-    contactoDelete = Contactos.query.get_or_404(id)
-    
-    #borrar de la db
-    db.session.delete(contactoDelete)
-    db.session.commit()
-    
-    #vuelve a pagina del formulario
-    return redirect(url_for('form'))
-
-@app.route("/update/<int:id>", methods=["GET", "POST"])
-def updateContacto(id):
-    if request.method == "POST":
-        contactoUpdate = Contactos.query.get_or_404(id)
-        
-        contactoUpdate.nombre = request.form['nombre']
-        contactoUpdate.telefono = request.form['telefono']
-        contactoUpdate.email = request.form['email']
-        
-        db.session.commit()
-        
-        flash("Se actualizo el contacto correctamente!")
-        return redirect(url_for('form'))
-    else:
-        contactoUpdate = Contactos.query.get_or_404(id)
-        return render_template("update.html", contacto = contactoUpdate)
-        
 if __name__ == "__main__":
     app.run(debug=True)
     
