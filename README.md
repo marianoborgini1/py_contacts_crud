@@ -7,6 +7,9 @@
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
+## 🔗 Link de la web para probar
+<https://pycontacts.vercel.app/>
+
 ## 📌 Sobre el Proyecto
 
 **PyContacts** es una aplicación web de gestión de contactos desarrollada completamente en Python utilizando el micro-framework Flask. 
@@ -41,9 +44,6 @@ El núcleo de **PyContacts** está soportado por una base de datos relacional (P
 * **Modelo Relacional (1:N):** La arquitectura utiliza una relación de "Uno a Muchos" (One-to-Many) entre las entidades `User` y `Contacts`. Se implementó una llave foránea (`FK id_user`) con restricciones estrictas (`NOT NULL`) para asegurar que cada contacto guardado pertenezca de forma exclusiva y unívoca a un usuario validado, aislando la información entre cuentas.
 * **Integridad y Flexibilidad de Datos (Constraints):** Los campos críticos para el funcionamiento del sistema (`nombre` y `telefono` para los contactos; credenciales de acceso para los usuarios) poseen restricciones `NOT NULL` a nivel de base de datos. En contraste, el campo `email` en la tabla de contactos permite valores nulos (`Nullable`), otorgando flexibilidad para registrar personas de las que solo se posee el número telefónico sin romper la integridad estructural.
 
-## 🔗 Link de la web para probar
-<https://pycontacts.vercel.app/>
-
 ## 💻 Instalación y Uso Local
 
 Si querés clonar el proyecto y correrlo en tu máquina local, seguí estos pasos:
@@ -62,6 +62,7 @@ Si querés clonar el proyecto y correrlo en tu máquina local, seguí estos paso
 ```bash
    python app.py
 ```
+
 
 
 
