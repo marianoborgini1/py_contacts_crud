@@ -1,50 +1,47 @@
 import os
 from dotenv import load_dotenv
+
+# Carga las variables de entorno
 load_dotenv()
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from models.database import db
-
 from models.table_user import User
 from models.table_contacts import Contactos
+
 from routes.auth import rout_auth
 from routes.contacts import rout_contacts
 
 app = Flask(__name__)
 
-
-url_db = os.environ.get('DATABASE_URL')
-if url_db and url_db.startswith("postgres://"):
-    url_db = url_db.replace("postgres://", "postgresql://", 1)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = url_db
+# Configuración de base de datos directa y sin vueltas
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     "pool_pre_ping": True,
     "pool_recycle": 300,
 }
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Clave secreta
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'default_key_flask')
 
 db.init_app(app)
 
+# Creación automática de tablas
+with app.app_context():
+    db.create_all()
 
+# Registro de rutas
 app.register_blueprint(rout_auth)
 app.register_blueprint(rout_contacts)
 
 @app.route('/')
 def index():
+    # Si tiene sesión iniciada redirige al dashboard
     if 'userId' in session:
         return redirect(url_for('contacts.dashboard'))
+        
     return render_template('index.html')
-
-# CREA LAS TABLAS MANUALMENTE (table secret)
-@app.route('/setup-db')
-def setup_db():
-    try:
-        db.create_all()
-        return "<h1>✅ TABLAS CREADAS Y BASE DE DATOS CONECTADA PERFECTAMENTE</h1>"
-    except Exception as e:
-        return f"<h1>🚨 ERROR AL CONECTAR CON NEON:</h1><p>{str(e)}</p>"
 
 if __name__ == "__main__":
     app.run(debug=True)
