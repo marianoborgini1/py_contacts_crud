@@ -1,18 +1,15 @@
-import os     
-
-#Carga las variables antes de importar la base de datos
+import os       
 from dotenv import load_dotenv             
-load_dotenv()    
-        
-from flask import Flask, render_template, request, redirect, url_for, flash, session, redirect
-from pprint import pprint #permite mostrar datos complejos de forma facil de leer en consola
+load_dotenv()                              
+
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from pprint import pprint
 from models.database import db
 from models.table_user import User
 from models.table_contacts import Contactos
 
 from routes.auth import rout_auth
 from routes.contacts import rout_contacts
-#flash mensaje temporal entre una pagina y otra ej: contraseña incorrecta, agregado correctamente, etc.
 
 app = Flask(__name__)
 
@@ -30,9 +27,15 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'default_key_flask')
 #conexion le decimos que esta es nuestra app
 db.init_app(app)
 
-#creamos tabla
-with app.app_context():
-    db.create_all()
+# VARIABLE PARA ATRAPAR EL ERROR
+error_db = None
+
+# Intentamos crear la tabla. Si explota, guardamos el error en vez de romper la página
+try:
+    with app.app_context():
+        db.create_all()
+except Exception as e:
+    error_db = str(e)
     
 # Registro de rutas 
 app.register_blueprint(rout_auth)
@@ -40,6 +43,11 @@ app.register_blueprint(rout_contacts)
 
 @app.route('/')
 def index():
+    # SI HUBO UN ERROR, LO MOSTRAMOS GIGANTE EN LA PANTALLA:
+    if error_db:
+        url_cargada = os.environ.get('DATABASE_URL')
+        return f"<h1>🚨 REPORTE DE ERROR:</h1><p><b>Motivo exacto:</b> {error_db}</p><p><b>¿Vercel está leyendo la URL?:</b> {url_cargada}</p>"
+        
     # Si tiene sesión iniciada redirige al dashboard
     if 'userId' in session:
         return redirect(url_for('contacts.dashboard'))
@@ -48,4 +56,3 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
