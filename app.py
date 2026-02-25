@@ -1,11 +1,14 @@
-import os       
+import os     
+
+#Carga las variables antes de importar la base de datos
+from dotenv import load_dotenv             
+load_dotenv()    
+        
 from flask import Flask, render_template, request, redirect, url_for, flash, session, redirect
 from pprint import pprint #permite mostrar datos complejos de forma facil de leer en consola
 from models.database import db
 from models.table_user import User
 from models.table_contacts import Contactos
-from dotenv import load_dotenv             
-load_dotenv()                              
 
 from routes.auth import rout_auth
 from routes.contacts import rout_contacts
