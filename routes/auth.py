@@ -1,8 +1,10 @@
+from werkzeug.security import generate_password_hash, check_password_hash 
 from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash, session
 from pprint import pprint #permite mostrar datos complejos de forma facil de leer en consola
 from models.database import db
 from models.table_user import User
 from models.table_contacts import Contactos
+
 
 # herramientas para mandar email y generar tokens seguros
 import os    
@@ -25,7 +27,8 @@ def login():
         # consulta si el email ingresado es = al email guardado en db 
         userFound = User.query.filter_by(email=email).first()
         
-        if userFound and userFound.password == password:
+        # Se verifica si el usuario existe y si la contraseña ingresada coincide con el hash guardado
+        if userFound and check_password_hash(userFound.password, password):
             # Si el usuario ingresa los datos correctamente, se le guarda el user y el id en la memoria del navegador para que dashboard entienda quien esta en la sesion
             session['userId'] = userFound.id
             session['userName'] = userFound.username 
@@ -51,7 +54,9 @@ def register():
             flash("ERROR. El email ya esta registrado.")
             return redirect(url_for('auth.register'))
         
-        newUser = User(username=username, email=email, password=password)
+        # Hasheamos la contraseña antes de guardarla en la base de datos
+        password_hasheada = generate_password_hash(password)
+        newUser = User(username=username, email=email, password=password_hasheada)
         
         db.session.add(newUser)
         db.session.commit()
@@ -123,8 +128,8 @@ def reset_password(token):
         user = User.query.filter_by(email=email_del_token).first()
         
         if user:
-            # Reemplaza contraseña vieja por la nueva, se guarda en la DB
-            user.password = nueva_password
+            # Reemplaza contraseña vieja por la nueva (hasheada), se guarda en la DB
+            user.password = generate_password_hash(nueva_password)
             db.session.commit()
             
             flash('¡Excelente! Tu contraseña fue actualizada. Ya podés iniciar sesión.', 'success')

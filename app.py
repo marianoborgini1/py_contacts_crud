@@ -13,7 +13,8 @@ from routes.contacts import rout_contacts
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_4NWEOulj8GzM@ep-orange-wildflower-aieimn4m-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+# Llama a la URL de la base de datos desde el .env por seguridad
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     "pool_pre_ping": True,
     "pool_recycle": 300,
@@ -44,5 +45,4 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
     
