@@ -42,7 +42,7 @@ El núcleo de **PyContacts** está soportado por una base de datos relacional (P
 * **Integridad y Flexibilidad de Datos (Constraints):** Los campos críticos para el funcionamiento del sistema (`nombre` y `telefono` para los contactos; credenciales de acceso para los usuarios) poseen restricciones `NOT NULL` a nivel de base de datos. En contraste, el campo `email` en la tabla de contactos permite valores nulos (`Nullable`), otorgando flexibilidad para registrar personas de las que solo se posee el número telefónico sin romper la integridad estructural.
 
 ## 🔗 Link de la web para probar
-<https://pycontacts.vercel.app/>
+<https://py-contacts.vercel.app/>
 
 ## 💻 Instalación y Uso Local
 
@@ -62,6 +62,7 @@ Si querés clonar el proyecto y correrlo en tu máquina local, seguí estos paso
 ```bash
    python app.py
 ```
+
 
 
 
