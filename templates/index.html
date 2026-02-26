@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyContacts</title>
+    <title>PyContacts - Tu agenda inteligente</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -47,31 +47,31 @@
             <div class="hero-visual">
                 <div class="floating-card">
                     <div class="glow-effect"></div>
-                    <div class="card-header-visual" style="border-bottom: none; padding-bottom: 5px;">
+                    <div class="card-header-visual" style="border-bottom: none; padding-bottom: 5px; justify-content: center;">
                         <h4 style="color: white; font-size: 1.1rem; margin-bottom: 15px;">
-                            <i class="fas fa-history" style="color: #3498db;"></i> Agregados Recientemente
-                        </h4>
-                    </div>
+                            <i class="fas fa-star" style="color: #fbbf24;"></i> Beneficios
+                        </h4> 
+                    </div> 
                     <div class="card-body-visual">
                         <div class="mock-contact">
-                            <div class="mock-avatar" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">E</div>
+                            <div class="mock-avatar" style="background: linear-gradient(135deg, #10b981, #047857);"><i class="fas fa-shield-alt"></i></div>
                             <div class="mock-info">
-                                <h5>Elon Musk</h5>
-                                <span>+1 555-0199</span>
+                                <h5>100% Seguro</h5>
+                                <span>Tus datos siempre protegidos.</span>
                             </div>
                         </div>
                         <div class="mock-contact">
-                            <div class="mock-avatar" style="background: linear-gradient(135deg, #10b981, #047857);">S</div>
+                            <div class="mock-avatar" style="background: linear-gradient(135deg, #3498db, #1d4ed8);"><i class="fas fa-cloud"></i></div>
                             <div class="mock-info">
-                                <h5>Steve Jobs</h5>
-                                <span>steve@apple.com</span>
+                                <h5>En la Nube</h5>
+                                <span>Sincronización en tiempo real.</span>
                             </div>
                         </div>
                         <div class="mock-contact">
-                            <div class="mock-avatar" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">M</div>
+                            <div class="mock-avatar" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);"><i class="fas fa-mobile-alt"></i></div>
                             <div class="mock-info">
-                                <h5>Mark Zuckerberg</h5>
-                                <span>Categoría: Trabajo</span>
+                                <h5>Multidispositivo</h5>
+                                <span>Úsala en cualquier pantalla.</span>
                             </div>
                         </div>
                     </div>
@@ -100,12 +100,10 @@
     <script>
         const hamburger = document.querySelector(".hamburger");
         const navLinks = document.querySelector(".nav-links");
-
         hamburger.addEventListener("click", () => {
             hamburger.classList.toggle("active");
             navLinks.classList.toggle("active");
         });
-
         document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", () => {
             hamburger.classList.remove("active");
             navLinks.classList.remove("active");
