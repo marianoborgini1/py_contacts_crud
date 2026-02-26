@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - PyContacts</title>
+    <title>PyContacts - {{ session.get('userName') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -35,8 +35,16 @@
     <header class="navbar">
         <div class="nav-content">
             <h1><a href="/"><i class="fas fa-address-book" style="color: #3498db;"></i> PyContacts</a></h1>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
             <div class="nav-links">
                 <span style="margin-right: 15px;"> Hola, {{ session.get('userName') }}👋</span>
+                <a href="#footer"><i class="fas fa-envelope"></i> Contacto</a>
                 <a href="{{ url_for('auth.logout') }}" class="btn-nav-danger"><i class="fas fa-sign-out-alt"></i> Salir</a>
             </div>
         </div>
@@ -108,6 +116,7 @@
     </footer>
 
     <script>
+        // Script SweetAlert original
         function confirmarEliminacion(url) {
             Swal.fire({
                 title: '¿Estás seguro?',
@@ -126,6 +135,22 @@
                     window.location.href = url;
                 }
             })
+        }
+
+        // Script Menú Hamburguesa
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener("click", () => {
+                hamburger.classList.toggle("active");
+                navLinks.classList.toggle("active");
+            });
+
+            document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navLinks.classList.remove("active");
+            }));
         }
     </script>
 </body>
