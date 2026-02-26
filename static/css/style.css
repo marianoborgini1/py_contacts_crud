@@ -167,19 +167,51 @@ body {
 
 .hero-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    max-width: 800px;
+    justify-content: space-between;
+    max-width: 1100px;
     width: 100%;
-    text-align: center;
+    gap: 50px;
+    text-align: left;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #3498db, #8b5cf6, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.badge-pro {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .hero-text h2 {
     font-size: 3.5rem;
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     font-weight: 700;
+    line-height: 1.1;
 }
 
 .hero-text p {
@@ -187,6 +219,85 @@ body {
     color: #e2e8f0;
     margin-bottom: 40px;
     line-height: 1.6;
+}
+
+.floating-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    animation: float 6s ease-in-out infinite;
+}
+
+.glow-effect {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: #3498db;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.card-header-visual {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+}
+
+.avatar-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #3498db, #8b5cf6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.avatar-text h4 {
+    color: white;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.avatar-text span {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.info-row {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
 }
 
 .hero-btn {
@@ -289,7 +400,9 @@ input[type="submit"]:hover, .btn-action:hover {
     background-color: #2980b9; 
 }
 
-ul { list-style: none; }
+ul {
+    list-style: none;
+}
 
 .tarjeta-contacto {
     background-color: #fff;
@@ -305,9 +418,23 @@ ul { list-style: none; }
     transition: transform 0.2s;
 }
 
-.tarjeta-contacto:hover { transform: translateX(5px); }
-.tarjeta-contacto h5 { margin: 0 0 5px 0; font-size: 1.1rem; color: #1e293b; font-weight: 600; }
-.tarjeta-contacto small { color: #64748b; display: block; font-size: 0.9rem; margin-bottom: 3px;}
+.tarjeta-contacto:hover {
+    transform: translateX(5px);
+}
+
+.tarjeta-contacto h5 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.tarjeta-contacto small {
+    color: #64748b;
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+}
 
 .btn-cancelar {
     display: block;
@@ -328,22 +455,66 @@ ul { list-style: none; }
     background-color: #334155;
 }
 
-.acciones { display: flex; gap: 10px; }
-.btn-editar, .btn-borrar {
-    display: inline-flex; justify-content: center; align-items: center;
-    width: 38px; height: 38px; border-radius: 8px; font-size: 1rem; text-decoration: none; border: none;
+.acciones {
+    display: flex;
+    gap: 10px;
 }
-.btn-editar { background-color: #fef08a; color: #854d0e; }
-.btn-editar:hover { background-color: #fde047; transform: translateY(-2px); }
-.btn-borrar { background-color: #fecaca; color: #b91c1c; }
-.btn-borrar:hover { background-color: #fca5a5; transform: translateY(-2px); }
 
-.listBox::-webkit-scrollbar { width: 6px; }
-.listBox::-webkit-scrollbar-track { background: transparent; }
-.listBox::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-.listBox::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+.btn-editar, .btn-borrar {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-editar {
+    background-color: #fef08a;
+    color: #854d0e;
+}
+
+.btn-editar:hover {
+    background-color: #fde047;
+    transform: translateY(-2px);
+}
+
+.btn-borrar {
+    background-color: #fecaca;
+    color: #b91c1c;
+}
+
+.btn-borrar:hover {
+    background-color: #fca5a5;
+    transform: translateY(-2px);
+}
+
+.listBox::-webkit-scrollbar {
+    width: 6px;
+}
+
+.listBox::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.listBox::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.listBox::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
 
 @media (max-width: 768px) {
+    .hero-section, .auth-wrapper {
+        background-attachment: scroll !important;
+        padding: 60px 20px !important;
+    }
+
     .hamburger {
         display: block;
         z-index: 101;
@@ -385,13 +556,28 @@ ul { list-style: none; }
         transform: translateY(0);
     }
 
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
     .hero-text h2 { 
-        font-size: 2.2rem; 
+        font-size: 2.5rem; 
     }
     
     .hero-text p { 
         font-size: 1rem; 
         margin-bottom: 25px; 
+    }
+
+    .hero-visual {
+        width: 100%;
+    }
+
+    .floating-card {
+        animation: none;
+        transform: translateY(0);
     }
 
     .contenedor-principal { 
@@ -426,6 +612,12 @@ ul { list-style: none; }
 }
 
 @media (max-width: 480px) {
-    .hero-text h2 { font-size: 1.8rem; }
-    .hero-btn { padding: 12px 25px; font-size: 1rem; }
+    .hero-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
 }

@@ -35,13 +35,34 @@
     <main class="hero-section">
         <div class="hero-content">
             <div class="hero-text">
-                <h2>Gestioná tus contactos de forma inteligente y segura.</h2>
-                <p>Olvidate de perder números o correos importantes. PyContacts es tu agenda personal en la nube, diseñada para ser rápida, simple y accesible desde cualquier dispositivo.</p>
-                {% if not session.get('userId') %}
-                    <a href="{{ url_for('auth.register') }}" class="hero-btn">Registrate Gratis <i class="fas fa-arrow-right"></i></a>
-                {% else %}
-                    <a href="{{ url_for('contacts.dashboard') }}" class="hero-btn">Ir a mi Agenda <i class="fas fa-arrow-right"></i></a>
-                {% endif %}
+                <div class="badge-pro"><i class="fas fa-bolt" style="color: #fbbf24;"></i> Rápido, seguro y en la nube</div>
+                <h2>Gestioná tus contactos de forma <span class="text-gradient">inteligente</span>.</h2>
+                <p>Olvidate de perder números o correos importantes. PyContacts es tu agenda personal diseñada para ser simple y accesible desde cualquier dispositivo.</p>
+                <div class="hero-actions">
+                    {% if not session.get('userId') %}
+                        <a href="{{ url_for('auth.register') }}" class="hero-btn">Empezar Gratis <i class="fas fa-arrow-right"></i></a>
+                    {% else %}
+                        <a href="{{ url_for('contacts.dashboard') }}" class="hero-btn">Ir a mi Agenda <i class="fas fa-arrow-right"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="floating-card">
+                    <div class="glow-effect"></div>
+                    <div class="card-header-visual">
+                        <div class="avatar-icon"><i class="fas fa-user-astronaut"></i></div>
+                        <div class="avatar-text">
+                            <h4>Mariano Borgini</h4>
+                            <span>Dev Full Stack</span>
+                        </div>
+                    </div>
+                    <div class="card-body-visual">
+                        <div class="info-row"><i class="fas fa-phone" style="color: #3498db;"></i> <span>+54 221 648 0800</span></div>
+                        <div class="info-row"><i class="fas fa-envelope" style="color: #10b981;"></i> <span>mariano@dev.com</span></div>
+                        <div class="info-row"><i class="fas fa-map-marker-alt" style="color: #ef4444;"></i> <span>La Plata, Arg</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
