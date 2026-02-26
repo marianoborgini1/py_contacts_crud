@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyContacts - Tu agenda inteligente</title>
+    <title>PyContacts</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
     <header class="navbar">
         <div class="nav-content">
             <h1><a href="/"><i class="fas fa-address-book" style="color: #3498db;"></i> PyContacts</a></h1>
-            
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-
             <div class="nav-links">
                 {% if session.get('userId') %}
                     <a href="{{ url_for('contacts.dashboard') }}" class="btn-nav-primary">Ir al Dashboard</a>
@@ -50,17 +47,33 @@
             <div class="hero-visual">
                 <div class="floating-card">
                     <div class="glow-effect"></div>
-                    <div class="card-header-visual">
-                        <div class="avatar-icon"><i class="fas fa-user-astronaut"></i></div>
-                        <div class="avatar-text">
-                            <h4>Mariano Borgini</h4>
-                            <span>Dev Full Stack</span>
-                        </div>
+                    <div class="card-header-visual" style="border-bottom: none; padding-bottom: 5px;">
+                        <h4 style="color: white; font-size: 1.1rem; margin-bottom: 15px;">
+                            <i class="fas fa-history" style="color: #3498db;"></i> Agregados Recientemente
+                        </h4>
                     </div>
                     <div class="card-body-visual">
-                        <div class="info-row"><i class="fas fa-phone" style="color: #3498db;"></i> <span>+54 221 648 0800</span></div>
-                        <div class="info-row"><i class="fas fa-envelope" style="color: #10b981;"></i> <span>mariano@dev.com</span></div>
-                        <div class="info-row"><i class="fas fa-map-marker-alt" style="color: #ef4444;"></i> <span>La Plata, Arg</span></div>
+                        <div class="mock-contact">
+                            <div class="mock-avatar" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">E</div>
+                            <div class="mock-info">
+                                <h5>Elon Musk</h5>
+                                <span>+1 555-0199</span>
+                            </div>
+                        </div>
+                        <div class="mock-contact">
+                            <div class="mock-avatar" style="background: linear-gradient(135deg, #10b981, #047857);">S</div>
+                            <div class="mock-info">
+                                <h5>Steve Jobs</h5>
+                                <span>steve@apple.com</span>
+                            </div>
+                        </div>
+                        <div class="mock-contact">
+                            <div class="mock-avatar" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">M</div>
+                            <div class="mock-info">
+                                <h5>Mark Zuckerberg</h5>
+                                <span>Categoría: Trabajo</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,6 +111,5 @@
             navLinks.classList.remove("active");
         }));
     </script>
-
 </body>
 </html>
